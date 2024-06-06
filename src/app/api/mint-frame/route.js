@@ -35,7 +35,7 @@ export async function POST(req) {
               abi: [],
               data,
               to: CONTRACT_ADDRESS,
-              value: ethers.formatEther('5000000'), // 0.005 ETH
+              value: ethers.parseEther('0.005'), // 0.005 ETH
             },
         };
 
