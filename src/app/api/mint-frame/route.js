@@ -3,13 +3,14 @@ import { encodeFunctionData } from 'viem';
 import { ethers } from 'ethers';
 import { base } from 'viem/chains';
 import { CONTRACT_ADDRESS, FULL_CONTRACT_ABI } from '@/utils/constants';
+import { NextResponse } from 'next/server';
 
 export async function POST(req) {
     try {
         const body = await req.json();
         const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'C4CC8097-0790-4690-88BB-D74507A83821' });
         if (!isValid) {
-            return new Response(JSON.stringify({ message: "Error with frame" }), {status: 500});
+            return new NextResponse("Error with frame", {status: 500});
         }
 
         console.log("message from frame: ", message)
@@ -18,8 +19,9 @@ export async function POST(req) {
 
         if (!toAddress) {
             console.log("Error: No user address")
-            return new Response(JSON.stringify({ message: "Error completing tx" }), {status: 500});
+            return new NextResponse("Error completing tx", {status: 500});
         }
+
         const data = encodeFunctionData({
             abi: FULL_CONTRACT_ABI,
             functionName: 'safeMint',
@@ -37,10 +39,12 @@ export async function POST(req) {
             },
         };
 
-        return new Response(JSON.stringify(txData), {status: 200});
+        console.log("tx data: ", txData)
+
+        return NextResponse.json(txData);
     } catch (error) {
         console.log("error: ", error)
-        return new Response(JSON.stringify({ message: "Error completing project" }), {status: 500});
+        return new NextResponse("Error completing project", {status: 500});
     }
 }
 
