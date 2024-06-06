@@ -15,7 +15,7 @@ const frameMetadata = getFrameMetadata({
     src: `${publicUrl}/qualified.gif`,
     aspectRatio: '1:1',
   },
-  postUrl: `${publicUrl}/api/after-mint`,
+  postUrl: `${publicUrl}/api/website-link`,
 });
 
 export const metadata = {

@@ -1,0 +1,31 @@
+import { getFrameMessage, getFrameHtmlResponse } from '@coinbase/onchainkit/frame';
+
+const publicUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+
+export async function POST(req) {
+    const body = await req.json();
+    const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'C4CC8097-0790-4690-88BB-D74507A83821' });
+
+    if (!isValid) {
+        return new Response('Message not valid', { status: 500 });
+    }
+
+    return new Response(
+        getFrameHtmlResponse({
+            image: {
+                src: `${publicUrl}/open_mouth.png`,
+                aspectRatio: '1:1',
+            },
+            buttons: [
+                {
+                    action: 'link',
+                    label: 'Check out the website',
+                    target: 'https://www.morning-routine.xyz'
+                }
+            ],
+            postUrl: `${publicUrl}/api/website-link`
+        }),
+    );
+}
+
+export const dynamic = 'force-dynamic';
