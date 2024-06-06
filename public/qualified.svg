@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet">
+  <style type="text/css">
+    <![CDATA[
+      text { font-family: Arial; fill: #000000;}
+      .h1 {font-size: 60px; font-weight: 600;}
+    ]]>
+  </style>
+  <rect width="600" height="600" fill="#ffffff" />
+  <rect x="40" height="520" y="40" width="520" style="stroke: #000000; fill: #ffffff; stroke-width: 6"/>
+  <text class="h1" x="140" y="320">QUALIFIED</text>
+</svg>

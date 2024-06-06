@@ -6,12 +6,38 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px'
+    },
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        'blue': '#0000ff',
       },
+      fontFamily: {
+        monumentregular: ['monumentregular'],
+        monumentbold: ['monumentbold']
+      },
+      keyframes: {
+        fadeInFadeOut: {
+          '0%': { opacity: 0 },
+          '50%': { opacity: 1 },
+          '100%': { opacity: 0 }
+        },
+        moveAround: {
+          '0%': { transform: 'translate(0, 0)' },
+          '25%': { transform: 'translate(100px, -50px)' },
+          '50%': { transform: 'translate(-100px, 100px)' },
+          '75%': { transform: 'translate(-50px, -100px)' },
+          '100%': { transform: 'translate(0, 0)' }
+        }
+      },
+      animation: {
+        fadeInFadeOut: 'fadeInFadeOut 5s ease-in-out infinite',
+      }
     },
   },
   plugins: [],
