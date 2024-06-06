@@ -1,5 +1,6 @@
 import { getFrameMessage } from '@coinbase/onchainkit/frame';
 import { encodeFunctionData } from 'viem';
+import { ethers } from 'ethers';
 import { base } from 'viem/chains';
 import { CONTRACT_ADDRESS, FULL_CONTRACT_ABI } from '@/utils/constants';
 
@@ -32,7 +33,7 @@ export async function POST(req) {
               abi: [],
               data,
               to: CONTRACT_ADDRESS,
-              value: parseGwei('5000000').toString(), // 0.005 ETH
+              value: ethers.formatEther('5000000'), // 0.005 ETH
             },
         };
 
