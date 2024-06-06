@@ -37,7 +37,7 @@ export async function POST(req) {
             },
         };
 
-        return new Response(JSON.stringify({txData}), {status: 200});
+        return new Response(JSON.stringify(txData), {status: 200});
     } catch (error) {
         console.log("error: ", error)
         return new Response(JSON.stringify({ message: "Error completing project" }), {status: 500});
