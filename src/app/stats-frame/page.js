@@ -1,4 +1,4 @@
-import { getFrameMetadata } from '@coinbase/onchainkit';
+import { getFrameMetadata } from '@coinbase/onchainkit/frame';
 
 const publicUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
 

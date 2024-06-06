@@ -3,7 +3,7 @@ import { privateKeyToAccount } from 'viem/accounts'
 import { base } from 'viem/chains' // TODO: update this mainnet
 import { CONTRACT_ADDRESS, CONTRACT_ABIS } from '@/utils/constants';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient, UpdateItemCommand } from '@aws-sdk/lib-dynamodb';
+import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import {PROJECT_ID} from "@/utils/constants";
 
 const dynamoDbClient = new DynamoDBClient({
@@ -57,8 +57,8 @@ export async function GET(request) {
         ReturnValues: 'UPDATED_NEW' // Optionally return updated fields
     };
 
-    const updateCommand = new UpdateItemCommand(updateParams);
-    const response = await dynamoDbDocClient.send(updateCommand);
+    // const updateCommand = new UpdateItemCommand(updateParams);
+    // const response = await dynamoDbDocClient.send(updateCommand);
    
     return Response.json({ success: true });
 }

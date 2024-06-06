@@ -8,11 +8,11 @@ const s3Client = new S3Client({
     }
 });
 
-export const config = {
-    api: {
-        bodyParser: false
-    }
-}
+// export const config = {
+//     api: {
+//         bodyParser: false
+//     }
+// }
 
 export async function POST(req) {
     try {

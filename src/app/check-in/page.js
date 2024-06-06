@@ -52,10 +52,10 @@ export default function CheckIn() {
                         <>
                             <div className="md:text-lg text-sm text-left font-sans mt-[30px] md:w-[600px] w-full">
                                 Input your token ID below.
-                                When you're ready press 'Start recording' and scream into your microphone.
-                                When you're finished press 'Stop recording'.
-                                To review your audio press 'play'.
-                                When you're happy with your submission click 'GM' to finish checking in (this will trigger an on-chain transaction).
+                                When you&apos;re ready press &apos;Start recording&apos; and scream into your microphone.
+                                When you&apos;re finished press &apos;Stop recording&apos;.
+                                To review your audio press &apos;play&apos;.
+                                When you&apos;re happy with your submission click &apos;GM&apos; to finish checking in (this will trigger an on-chain transaction).
                                 See you tomorrow.
                             </div>
                             <div className="mx-auto">
