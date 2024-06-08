@@ -14,8 +14,12 @@ const contract = new ethers.Contract(contractAddress, contractABI, provider);
 
 export async function getTokenQualification(tokenId) {
 
-    const isTokenQualified = await contract.tokenIdToTokenQualified(tokenId);
-    const lastCheckInTimestamp = await contract.tokenIdToLastInteractionTimestamp(tokenId);
-
-    return { status: "OK", data: { isQualified: isTokenQualified, lastCheckIn: lastCheckInTimestamp } }
+    try {
+        const isTokenQualified = await contract.tokenIdToTokenQualified(tokenId);
+        const lastCheckInTimestamp = await contract.tokenIdToLastInteractionTimestamp(tokenId);
+        return { status: "OK", data: { isQualified: isTokenQualified, lastCheckIn: lastCheckInTimestamp?.toString() } }
+    } catch (error) {
+        console.log("ERROR: ", error)
+        return { status: "ERROR", error: { message: "Call failed." } }
+    }
 }

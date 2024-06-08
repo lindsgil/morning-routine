@@ -6,12 +6,14 @@ import { Button } from '../button';
 import { CONTRACT_ABIS, CONTRACT_ADDRESS } from '@/utils/constants';
 import { usePublicClient, useWalletClient } from 'wagmi';
 import { submitOnChain } from '@/app/(actions)/submit-on-chain';
+import { useToast } from '../toast/use-toast';
 
 const AudioRecorder = ({tokenId}) => {
     const { data: walletClient } = useWalletClient();
     const publicClient = usePublicClient();
     const [isRecording, setIsRecording] = useState(false);
     const [audioBlob, setAudioBlob] = useState(null);
+    const { toast } = useToast()
     const mediaRecorderRef = useRef(null);
 
     const handleStartRecording = async () => {
@@ -46,8 +48,13 @@ const AudioRecorder = ({tokenId}) => {
     };
 
     const handleCheckIn = async() => {
-        const formData = new FormData();
-        formData.append('audio', audioBlob, 'audio.wav');
+        let formData;
+        try {
+            formData = new FormData();
+            formData?.append('audio', audioBlob, 'audio.wav');
+        } catch (error) {
+            console.log("error appending form data")
+        }
 
         // queue tx to check in
         const transactionInputs = {
@@ -56,23 +63,28 @@ const AudioRecorder = ({tokenId}) => {
             contractFunctionName: "checkIn",
             transactionArgs: [tokenId]
         }
-        // const data = await submitOnChain(transactionInputs, walletClient, publicClient)
+        const data = await submitOnChain(transactionInputs, walletClient, publicClient)
 
-        // if (data?.status === "ERROR") {
-        //     toast({
-        //         description: "Error checking in, try again..",
-        //     })
-        // } else {
-        //     toast({
-        //         description: "Check in successful",
-        //     })
-        // }
-        // upload audio blob
-        const config = {
-            headers: {'content-type': 'multipart/form-data'}
+        if (data?.status === "ERROR") {
+            toast({
+                description: "Error checking in, try again..",
+            })
+        } else {
+            toast({
+                description: "Check in successful",
+            })
         }
 
-        await axios.post('api/upload-audio', formData, config);
+        try {
+            // upload audio blob
+            const config = {
+                headers: {'content-type': 'multipart/form-data'}
+            }
+
+            await axios.post('api/upload-audio', formData, config);
+        } catch (error) {
+            console.log("error uploading audio blob")
+        }
     }
 
     return (

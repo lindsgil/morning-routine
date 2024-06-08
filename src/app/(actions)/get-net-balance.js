@@ -12,7 +12,7 @@ const contractABI = FULL_CONTRACT_ABI;
 
 const contract = new ethers.Contract(contractAddress, contractABI, provider);
 
-export async function getNetBalance(tokenId) {
+export async function getNetBalance() {
 
     try {
         const totalBalance = await contract.totalProceeds();

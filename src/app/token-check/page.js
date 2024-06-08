@@ -4,42 +4,29 @@ import Image from 'next/image';
 import { getTokenQualification } from '../(actions)/get-token-qualification';
 import { Input } from '../(components)/input';
 import { Button } from '../(components)/button';
-import { GAME_START_TIME } from '@/utils/constants';
-
-const DisqualifiedSVG = () => {
-  return (
-    <div>
-      <Image
-        src="/disqualified.svg"
-        alt="Disqualified"
-        width={600}
-        height={600}
-      />
-    </div>
-  );
-};
-
-const QualifiedSVG = () => {
-  return (
-    <div>
-      <Image
-        src="/qualified.svg"
-        alt="Qualified"
-        width={600}
-        height={600}
-      />
-    </div>
-  );
-};
-
+import { MINT_END_TIME } from '@/utils/constants';
+import { useWalletClient } from 'wagmi';
+import { getOwnedTokens } from '../(actions)/get-owned-tokens';
 
 export default function TokenChecker() {
+  const { data: walletClient } = useWalletClient();
   const [remainingTime, setRemainingTime] = useState({ days: null, hours: null})
+  const [ownedTokenIds, setOwnedTokenIds] = useState([])
   const [tokenId, setTokenId] = useState(0);
   const [tokenData, setTokenData] = useState(null)
+  const userAddress = walletClient?.account?.address;
 
   const handleTokenIdOnChange = (e) => {
     setTokenId(e.target.value)
+  }
+
+  const formatDate = (unixTimestamp) => {
+    if (unixTimestamp) {
+      const currDate = new Date(unixTimestamp * 1000)?.toISOString()
+      return currDate
+    } else {
+      return ""
+    }
   }
 
   const handleCheckToken = async() => {
@@ -48,21 +35,28 @@ export default function TokenChecker() {
 
     if (data.status === "OK") {
       tokenData.isQualified = data.data.isQualified
-      tokenData.lastCheckIn = data.data.lastCheckIn
+      tokenData.lastCheckIn = formatDate(data.data.lastCheckIn)
       tokenData.tokenId = tokenId
-      tokenData.image = data.data.isQualified ? <QualifiedSVG /> : <DisqualifiedSVG />
-
       setTokenData(tokenData)
     }
   }
 
   useEffect(() => {
+    async function fetchOwnedTokens() {
+      if (userAddress) {
+        const { data } = await getOwnedTokens(userAddress);
+        if (data) {
+          setOwnedTokenIds(data?.tokenIds)
+        }
+      }
+    }
+    fetchOwnedTokens();
       // calculate remaining time in hours
       const calculateRemainingTime = () => {
           const currentTime = Math.floor(Date.now() / 1000); // epoch seconds
-          if (currentTime <= GAME_START_TIME) {
+          if (currentTime <= MINT_END_TIME) {
               // mint hasnt started yet, calculate remaining time til mint
-              const remainingSeconds = GAME_START_TIME - currentTime;
+              const remainingSeconds = MINT_END_TIME - currentTime;
               const remainingDays = Math.floor(remainingSeconds / (3600 * 24))
               const remainingHours = Math.floor((remainingSeconds % (3600 * 24)) / 3600)
 
@@ -76,7 +70,7 @@ export default function TokenChecker() {
       const intervalId = setInterval(calculateRemainingTime, 60000)
       // cleanup on unmount
       return () => clearInterval(intervalId)
-  }, [])
+  }, [userAddress])
 
   return (
     <div>
@@ -85,14 +79,6 @@ export default function TokenChecker() {
             <div className="font-monumentbold tracking-wide font-bold md:text-[50px] text-[20px] whitespace-nowrap">
                 TOKEN CHECKER
             </div>
-          {tokenData !== null ? (
-            <div>
-              <span>Morning Routine {tokenData.tokenId}</span>
-              <span>Last check in: {tokenData.lastCheckIn}</span>
-              <span>Qualified? {tokenData.isQualified}</span>
-              <div>{tokenData.image}</div>
-            </div>
-          ) : null}
           {remainingTime.days !== null && remainingTime.hours !== null ? (
             <div>
               {`Game starts in ${remainingTime.days} ${remainingTime.days == 1 ? "day" : "days"} and ${remainingTime.hours} ${remainingTime.hours == 1 ? "hour" : "hours"}`}
@@ -101,6 +87,15 @@ export default function TokenChecker() {
             <>
               <div className="md:text-lg text-sm text-left font-sans mt-[30px] md:w-[600px] w-full">
                 Check if a token is qualified by ID.
+              </div>
+              <div className="md:text-lg text-sm text-left font-sans mt-[30px] md:w-[600px] w-full">
+                {ownedTokenIds && ownedTokenIds?.length > 0 ? (
+                    <div>
+                        Note - You own the following token Ids:
+                        { ownedTokenIds.map(tokenId => (<div key={tokenId}>{`${tokenId} `}</div>))}</div>
+                ): (
+                    <div>Note - It doesn&apos;t look like you own any tokens, try connecting with a different wallet.</div>
+                )}
               </div>
               <div className="flex space-x-4 mt-[20px]">
                 <Input
@@ -113,6 +108,14 @@ export default function TokenChecker() {
                     CHECK TOKEN
                 </Button>
               </div>
+              {tokenData !== null ? (
+                <div className="md:text-lg text-sm text-left font-sans mt-[30px] md:w-[600px] w-full">
+                  <div>Morning Routine # {tokenData.tokenId}</div>
+                  <div>Last check in: {tokenData.lastCheckIn}</div>
+                  <div>Qualified? {`${tokenData.isQualified}`}</div>
+                  <div>Remember to check tokens in daily</div>
+                </div>
+            ) : null}
             </>
             )}
         </div>

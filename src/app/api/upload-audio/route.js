@@ -8,18 +8,11 @@ const s3Client = new S3Client({
     }
 });
 
-// export const config = {
-//     api: {
-//         bodyParser: false
-//     }
-// }
-
 export async function POST(req) {
     try {
         const data = await req.formData();
         const audioFile = data.get('audio')
 
-        console.log("audio file : ", audioFile)
         if (!audioFile) {
             return new Response(JSON.stringify({ message: "No audio to upload"}), {status: 400})
         }
@@ -28,7 +21,6 @@ export async function POST(req) {
         const arrayBuffer = await audioFile.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
 
-        console.log("buffer: ", buffer)
         const uploadParams = {
             Bucket: 'morning-routine-audio',
             Key: fileName,

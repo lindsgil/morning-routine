@@ -8,31 +8,36 @@ const frameMetadata = getFrameMetadata({
       action: 'tx',
       label: 'Check In',
       target: `${publicUrl}/api/check-in-frame`,
+      postUrl: `${publicUrl}/api/after-check-in`
     }
   ],
   image: {
-    src: `${publicUrl}/button.webp`,
+    src: `${publicUrl}/open_mouth.png`,
     aspectRatio: '1:1',
   },
-  postUrl: `${publicUrl}/api/after-check-in`,
+  input: {
+    text: 'Token ID'
+  },
+  postUrl: `${publicUrl}/api/website-link`,
 });
 
 export const metadata = {
-  title: 'Check In',
-  description: "Check In",
-  openGraph: {
-    title: 'Check In',
-    description: "Check In",
-    images: [`${publicUrl}/button.webp`],
-  },
-  other: {
-    ...frameMetadata,
-  },
+    title: 'Morning Routine',
+    description: "Morning Routine by BASEMENT",
+    openGraph: {
+        title: 'Morning Routine',
+        description: "Morning Routine by BASEMENT",
+        images: [`${publicUrl}/open_mouth.png`],
+      },
+      other: {
+        ...frameMetadata,
+      },
 };
 
 export default function Page() {
   return (
-    <>
-    </>
+    <div>
+        hi
+    </div>
   );
 }
