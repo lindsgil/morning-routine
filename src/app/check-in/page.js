@@ -58,11 +58,11 @@ export default function CheckIn() {
                     <div className="font-monumentbold tracking-wide font-bold md:text-[50px] text-[20px] whitespace-nowrap">
                         CHECK IN
                     </div>
-                    {/* {remainingTime.days !== null && remainingTime.hours !== null ? (
+                    {remainingTime.days !== null && remainingTime.hours !== null ? (
                         <div>
                             {`Game starts in ${remainingTime.days} ${remainingTime.days == 1 ? "day" : "days"} and ${remainingTime.hours} ${remainingTime.hours == 1 ? "hour" : "hours"}`}
                         </div>
-                    ): ( */}
+                    ): (
                         <>
                             <div className="md:text-lg text-sm text-left font-sans mt-[30px] md:w-[600px] w-full">
                                 Input your token ID below.
@@ -100,7 +100,7 @@ export default function CheckIn() {
                                 To check if a token is still qualified visit <Link href="/token-check" className="underline">this page</Link>
                             </div>
                         </>
-                    {/* )} */}
+                    )}
                 </div>
             </div>
         </div>
