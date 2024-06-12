@@ -30,19 +30,19 @@ export async function GET(req) {
         const numDays = elapsedDays >= 0 ? elapsedDays : 0
     
         const svg = await satori(
-            <div style={{ color: 'blue', backgroundColor: 'white', display: 'flex', flexDirection: 'column', marginLeft: '40px', fontSize: '36px' }}>
-                <div style={{ display: 'flex', marginTop: '75px' }}>
+            <div style={{ color: 'blue', height: "600px", width: "600px", backgroundColor: 'white', display: 'flex', flexDirection: 'column', fontSize: '36px' }}>
+                <div style={{ display: 'flex', marginTop: '75px', marginLeft: '40px' }}>
                     MORNING ROUTINE
                 </div>
-                <div style={{ display: 'flex', marginTop: '120px' }}>
+                <div style={{ display: 'flex', marginTop: '120px', marginLeft: '40px' }}>
                     <span>Days: </span>
                     <span>{numDays}</span>
                 </div>
-                <div style={{ display: 'flex', marginTop: '50px' }}>
+                <div style={{ display: 'flex', marginTop: '50px', marginLeft: '40px' }}>
                     <span>Qualified tokens: </span>
                     <span>{numQualified.toString()}</span>
                 </div>
-                <div style={{ display: 'flex', marginTop: '50px' }}>
+                <div style={{ display: 'flex', marginTop: '50px', marginLeft: '40px' }}>
                     <span>Total pot: </span>
                     <span>0.0675 ETH</span>
                 </div>

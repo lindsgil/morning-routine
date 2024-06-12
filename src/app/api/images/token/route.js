@@ -27,19 +27,19 @@ export async function GET(req) {
         const lastCheckInNum = parseInt(lastCheckIn.toString())
         const lastCheckInFormatted = lastCheckInNum > 0 ? new Date(lastCheckInNum * 1000)?.toISOString() : "N/A"
         const svg = await satori(
-            <div style={{ color: 'blue', backgroundColor: 'white', display: 'flex', flexDirection: 'column', marginLeft: '40px', fontSize: '24px' }}>
-                <div style={{ display: 'flex', marginTop: '75px' }}>
+            <div style={{ color: 'blue', height: "600px", width: "600px", backgroundColor: 'white', display: 'flex', flexDirection: 'column', fontSize: '24px' }}>
+                <div style={{ display: 'flex', marginTop: '75px', marginLeft: '40px'  }}>
                     MORNING ROUTINE
                 </div>
-                <div style={{ display: 'flex', marginTop: '120px' }}>
+                <div style={{ display: 'flex', marginTop: '120px', marginLeft: '40px'  }}>
                     <span>Token ID: </span>
                     <span>{ tokenId }</span>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', marginTop: '50px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', marginTop: '50px', marginLeft: '40px'  }}>
                     <span>Last Check In: </span>
                     <span>{ lastCheckInFormatted }</span>
                 </div>
-                <div style={{ display: 'flex', marginTop: '50px' }}>
+                <div style={{ display: 'flex', marginTop: '50px', marginLeft: '40px' }}>
                     <span>Qualified: </span>
                     <span>{ `${tokenIsQualified}` }</span>
                 </div>
