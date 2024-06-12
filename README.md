@@ -15,3 +15,4 @@ Cron schedule runs daily at 8PM UTC
 - Game starts 6-14-24 at 8AM EST
 - Validation starts 6-15-24 at 5PM EST
 - Contract address: https://basescan.org/address/0xFb4E63b86F0C55b90757e4426f09deB0D6e9b25f#readContract
+
