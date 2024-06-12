@@ -31,7 +31,7 @@
     "react": "^18",
     "react-dom": "^18",
     "satori": "^0.10.13",
-    "sharp": "^0.33.4",
+    "sharp": "0.32.6",
     "siwe": "^2.3.2",
     "tailwind-merge": "^2.3.0",
     "viem": "2.x",
