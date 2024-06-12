@@ -30,7 +30,7 @@ export async function GET(req) {
         const numDays = elapsedDays >= 0 ? elapsedDays : 0
     
         const svg = await satori(
-            <div style={{ color: 'blue', display: 'flex', flexDirection: 'column', marginLeft: '40px', fontSize: '36px' }}>
+            <div style={{ color: 'blue', backgroundColor: 'white', display: 'flex', flexDirection: 'column', marginLeft: '40px', fontSize: '36px' }}>
                 <div style={{ display: 'flex', marginTop: '75px' }}>
                     MORNING ROUTINE
                 </div>

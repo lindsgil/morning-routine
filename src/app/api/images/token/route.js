@@ -27,7 +27,7 @@ export async function GET(req) {
         const lastCheckInNum = parseInt(lastCheckIn.toString())
         const lastCheckInFormatted = lastCheckInNum > 0 ? new Date(lastCheckInNum * 1000)?.toISOString() : "N/A"
         const svg = await satori(
-            <div style={{ color: 'blue', display: 'flex', flexDirection: 'column', marginLeft: '40px', fontSize: '24px' }}>
+            <div style={{ color: 'blue', backgroundColor: 'white', display: 'flex', flexDirection: 'column', marginLeft: '40px', fontSize: '24px' }}>
                 <div style={{ display: 'flex', marginTop: '75px' }}>
                     MORNING ROUTINE
                 </div>
