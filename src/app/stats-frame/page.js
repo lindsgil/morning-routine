@@ -9,7 +9,7 @@ const frameMetadata = getFrameMetadata({
         target: `${publicUrl}/api/game-stats-frame`,
         postUrl: `${publicUrl}/api/website-link`
     }, {
-        label: 'Token stats by ID',
+        label: 'Token stats',
         target: `${publicUrl}/api/token-stats-frame`,
         postUrl: `${publicUrl}/api/website-link`
     }
