@@ -4,7 +4,8 @@ import MintButton from '../mint-button';
 import { getNetBalance } from '@/app/(actions)/get-net-balance';
 import {
     MINT_START_TIME,
-    MINT_END_TIME
+    MINT_END_TIME,
+    GAME_START_TIME
 } from '@/utils/constants';
 import { getProjectsMetadata } from '@/app/(actions)/get-projects-metadata';
 
@@ -65,6 +66,47 @@ export function PostMintInfo() {
             </tbody>
         </div>
     )
+}
+
+export function PreGameInfo() {
+    const [remainingTime, setRemainingTime] = useState({ days: null, hours: null})
+
+    useEffect(() => {
+        // calculate remaining time in hours
+        const calculateRemainingTime = () => {
+            const currentTime = Math.floor(Date.now() / 1000); // epoch seconds
+            if (currentTime <= GAME_START_TIME) {
+                // mint hasnt started yet, calculate remaining time til mint
+                const remainingSeconds = GAME_START_TIME - currentTime;
+                const remainingDays = Math.floor(remainingSeconds / (3600 * 24))
+                const remainingHours = Math.floor((remainingSeconds % (3600 * 24)) / 3600)
+
+                setRemainingTime({ days: remainingDays, hours: remainingHours })
+            } else {
+                setRemainingTime({ days: null, hours: null})
+            }
+        }
+        // calculate every minute
+        calculateRemainingTime();
+        const intervalId = setInterval(calculateRemainingTime, 60000)
+        // cleanup on unmount
+        return () => clearInterval(intervalId)
+    }, [])
+
+    return (
+        <div>
+            <div className="flex h-full overflow-hidden md:text-lg text-sm text-center font-sans">
+                <div className="md:px-[50px] px-[20px] mx-auto max-w-full flex flex-col justify-between">
+                    {remainingTime.days !== null && remainingTime.hours !== null && (
+                        <div>
+                            {`Game starts in ${remainingTime.days} ${remainingTime.days == 1 ? "day" : "days"} and ${remainingTime.hours} ${remainingTime.hours == 1 ? "hour" : "hours"}`}
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+
 }
 
 export function PreMintInfo() {

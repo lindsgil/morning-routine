@@ -1,8 +1,8 @@
 'use client'
 import React from 'react';
 import Link from 'next/link';
-import Mint, { PostMintInfo, PreMintInfo } from '../mint';
-import { MINT_END_TIME, MINT_START_TIME } from '@/utils/constants';
+import Mint, { PostMintInfo, PreGameInfo, PreMintInfo } from '../mint';
+import { GAME_START_TIME, MINT_END_TIME, MINT_START_TIME } from '@/utils/constants';
 import Image from 'next/image';
 
 const Landing = () => {
@@ -19,7 +19,8 @@ const Landing = () => {
             </div>
             {currentTime < MINT_START_TIME ? (<PreMintInfo />) : null }
             {currentTime >= MINT_START_TIME && currentTime <= MINT_END_TIME ? (<Mint />) : null }
-            {currentTime > MINT_END_TIME ? (<PostMintInfo />) : null }
+            {currentTime >= MINT_END_TIME && currentTime <= GAME_START_TIME ? <PreGameInfo /> : null}
+            {currentTime > GAME_START_TIME ? (<PostMintInfo />) : null }
             <div className="text-left font-monumentbold tracking-wide font-bold md:text-[25px] text-[16px] whitespace-nowrap md:pl-[0px] pl-[20px] mt-[30px]">
                 INFO
             </div>
