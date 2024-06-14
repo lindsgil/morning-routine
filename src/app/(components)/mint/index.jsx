@@ -164,7 +164,7 @@ export default function Mint() {
                 setCurrInvocations(data?.currInvocations)
             }
         }
-        fetchBalance();
+        fetchBalance(); 
         // calculate remaining time in hours
         const calculateRemainingTime = () => {
             const currentTime = Math.floor(Date.now() / 1000); // epoch seconds
