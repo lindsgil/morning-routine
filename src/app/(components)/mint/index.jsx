@@ -7,29 +7,27 @@ import {
     MINT_END_TIME,
     GAME_START_TIME
 } from '@/utils/constants';
-import { getProjectsMetadata } from '@/app/(actions)/get-projects-metadata';
 
 export function PostMintInfo() {
-    const [projectData, setProjectData] = useState(null)
-
+    const [currInvocations, setCurrInvocations] = useState(0)
+    const [currQualified, setCurrQualified] = useState(0)
+    
     useEffect(() => {
-        const fetchProjectData = async () => {
-            try {
-                const projectsMetadataRes = await getProjectsMetadata();
-                setProjectData(projectsMetadataRes?.data ?? {});
-            } catch (error) {
-                console.error('Error fetching projects metadata:', error);
+        async function fetchBalance() {
+            const { data } = await getNetBalance()
+            if (data) {
+                setCurrQualified(data?.numQualified)
+                setCurrInvocations(data?.currInvocations)
             }
-        };
-
-        fetchProjectData();
+        }
+        fetchBalance();
     }, []);
 
-    const gameStartDate = new Date((projectData?.game_start_datetime ?? 0) * 1000)
+    const gameStartDate = new Date(GAME_START_TIME * 1000)
     const currentDate = new Date();
     const diffMs = currentDate - gameStartDate;
     const elapsedDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
-    const numDisqualified = projectData?.invocations > 0 ? projectData?.invocations - projectData?.num_qualified : "N/A"
+    const numDisqualified = parseInt(currInvocations) - parseInt(currQualified)
     return (
         <div className="lg:w-[800px] w-full mx-auto md:text-lg text-sm">
             <tbody className="md:hidden">
@@ -39,7 +37,7 @@ export function PostMintInfo() {
                 </tr>
                 <tr>
                     <td className="font-monumentbold tracking-wide font-bold px-[20px]">🟢 Qualified 🟢</td>
-                    <td>{projectData?.num_qualified}</td>
+                    <td>{currQualified}</td>
                 </tr>
                 <tr>
                     <td className="font-monumentbold tracking-wide font-bold px-[20px]">🗓️ Days 🗓️</td>
@@ -47,7 +45,7 @@ export function PostMintInfo() {
                 </tr>
                 <tr>
                     <td className="font-monumentbold tracking-wide font-bold px-[20px]">💰 Total Pool 💰</td>
-                    <td>{projectData?.total_eth}</td>
+                    <td>0.0675 Ξ</td>
                 </tr>
             </tbody>
             <tbody className="hidden md:block">
@@ -59,9 +57,9 @@ export function PostMintInfo() {
                 </tr>
                 <tr>
                     <td>{numDisqualified}</td>
-                    <td>{projectData?.num_qualified}</td>
+                    <td>{currQualified}</td>
                     <td>{elapsedDays}</td>
-                    <td>{projectData?.total_eth}</td>
+                    <td>0.0675 Ξ</td>
                 </tr>
             </tbody>
         </div>

@@ -19,7 +19,8 @@ export async function getNetBalance() {
         const totalBalanceEth = ethers.formatEther(totalBalance.toString());
         const netBalance = parseFloat(totalBalanceEth) * 0.75;
         const currInvocations = await contract.totalInvocations()
-        return { status: "OK", data: { netBalance: netBalance?.toString(), currInvocations: currInvocations?.toString() } }
+        const numQualified = await contract.numQualified()
+        return { status: "OK", data: { netBalance: netBalance?.toString(), currInvocations: currInvocations?.toString(), numQualified: numQualified.toString() } }
     } catch(error) {
         console.log("error: ", error)
         return { status: "ERROR", error: { message: "Call failed" } }
