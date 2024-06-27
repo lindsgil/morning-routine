@@ -4,7 +4,7 @@ Morning Routine is a tontine-style game developed by BASEMENT. The game emphasiz
 
 ### Game Overview
 #### Minting and Participation
-
+ 
 Minting for the game was open from June 6th through June 13th, 2024 on Base for 0.005 ETH. Participants who minted a token during this period qualified for the game. To remain qualified, token holders must check in daily by visiting www.morning-routine.xyz and screaming into their microphone. Alternatively, participants can play through frames in Warpcaster or by checking in on the contract directly (screaming not required). Each check-in prompts an on-chain transaction. The last holder to maintain their check-in streak wins the net proceeds from the mint.
 
 #### Community Engagement
