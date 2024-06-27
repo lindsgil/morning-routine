@@ -5,19 +5,19 @@ import { base } from 'viem/chains';
 import { CONTRACT_ADDRESS, FULL_CONTRACT_ABI } from '@/utils/constants';
 import { NextResponse } from 'next/server';
 
+const neynarApiKey = process.env.NEYNAR_API_KEY ?? ""
+
 export async function POST(req) {
     try {
         const body = await req.json();
-        console.log("body: ", body)
         const tokenId = body?.untrustedData?.inputText;
         const tokenIdNumber = parseInt(tokenId)
-        const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'C4CC8097-0790-4690-88BB-D74507A83821' });
+        const { isValid, message } = await getFrameMessage(body, { neynarApiKey: neynarApiKey });
 
         if (!isValid || !(tokenIdNumber >= 0)) {
             return new NextResponse("Error with frame", {status: 500});
         }
 
-        console.log("message from frame: ", message)
         const data = encodeFunctionData({
             abi: FULL_CONTRACT_ABI,
             functionName: 'checkIn',
@@ -35,12 +35,10 @@ export async function POST(req) {
             },
         };
 
-        console.log("tx data: ", txData)
-
         return NextResponse.json(txData);
     } catch (error) {
         console.log("error: ", error)
-        return new NextResponse("Error completing project", {status: 500});
+        return new NextResponse("Error checking in", {status: 500});
     }
 }
 

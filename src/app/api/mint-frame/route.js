@@ -5,17 +5,17 @@ import { base } from 'viem/chains';
 import { CONTRACT_ADDRESS, FULL_CONTRACT_ABI } from '@/utils/constants';
 import { NextResponse } from 'next/server';
 
+const neynarApiKey = process.env.NEYNAR_API_KEY ?? ""
+
 export async function POST(req) {
     try {
         const body = await req.json();
-        const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'C4CC8097-0790-4690-88BB-D74507A83821' });
+        const { isValid, message } = await getFrameMessage(body, { neynarApiKey: neynarApiKey });
         if (!isValid) {
             return new NextResponse("Error with frame", {status: 500});
         }
 
-        console.log("message from frame: ", message)
         const toAddress = message?.interactor?.verified_addresses?.eth_addresses?.[0]
-        console.log("to address: ", toAddress)
 
         if (!toAddress) {
             console.log("Error: No user address")
@@ -38,8 +38,6 @@ export async function POST(req) {
               value: ethers.parseEther('0.005').toString(), // 0.005 ETH
             },
         };
-
-        console.log("tx data: ", txData)
 
         return NextResponse.json(txData);
     } catch (error) {

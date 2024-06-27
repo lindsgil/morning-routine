@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 
 const BackgroundTextAnimation = () => {
   useEffect(() => {
-    // Function to generate and position text elements
     const generateTextElements = () => {
       const container = document.getElementById('background-text-container');
       const textCount = 100;
@@ -24,11 +23,11 @@ const BackgroundTextAnimation = () => {
 
     generateTextElements();
 
-    // Cleanup function to remove text elements on unmount
+    // remove text elements on unmount
     return () => {
       const container = document.getElementById('background-text-container');
       if (container && container?.innerHTML) {
-        container.innerHTML = ''; // Remove all child elements
+        container.innerHTML = '';
       }
     };
   }, []);

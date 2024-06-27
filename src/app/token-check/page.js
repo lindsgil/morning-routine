@@ -1,6 +1,5 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { getTokenQualification } from '../(actions)/get-token-qualification';
 import { Input } from '../(components)/input';
 import { Button } from '../(components)/button';

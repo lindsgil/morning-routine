@@ -13,7 +13,7 @@ const MintButton = () => {
     const publicClient = usePublicClient()
     const { toast } = useToast()
     const account = walletClient?.account?.address
-    const currentTime = Math.floor(Date.now() / 1000); // epoch seconds
+    const currentTime = Math.floor(Date.now() / 1000);
     const isMintPeriod = (currentTime >= MINT_START_TIME && currentTime <= MINT_END_TIME)
 
     const handleBidSubmit = async() => {

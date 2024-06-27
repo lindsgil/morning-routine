@@ -6,7 +6,7 @@ import { GAME_START_TIME, MINT_END_TIME, MINT_START_TIME } from '@/utils/constan
 import Image from 'next/image';
 
 const Landing = () => {
-    const currentTime = Math.floor(Date.now() / 1000); // epoch seconds
+    const currentTime = Math.floor(Date.now() / 1000);
 
     return (
         <div className="flex h-full overflow-hidden z-0">

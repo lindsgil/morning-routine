@@ -31,7 +31,7 @@ export default function CheckIn() {
         fetchOwnedTokens();
         // calculate remaining time in hours
         const calculateRemainingTime = () => {
-            const currentTime = Math.floor(Date.now() / 1000); // epoch seconds
+            const currentTime = Math.floor(Date.now() / 1000);
             if (currentTime <= MINT_END_TIME) {
                 // mint hasnt started yet, calculate remaining time til mint
                 const remainingSeconds = MINT_END_TIME - currentTime;
